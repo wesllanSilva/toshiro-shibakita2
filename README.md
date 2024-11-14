@@ -99,7 +99,7 @@ if ($link->query($query) === TRUE) {
 
 ```
 
-# Testando Container Web-server
+Testando Container Web-server
 ```bash
 docker run --name web-server -dt -p 8080:80 --mount type=volume,src=app,dst=/app/ webdevops/php-apache:alpine-php7
 ```
@@ -108,19 +108,19 @@ docker run --name web-server -dt -p 8080:80 --mount type=volume,src=app,dst=/app
 docker rm --force web-server
 ```
 
-# Criando Swarm
+## Criando Swarm
 ```bash
 docker swarm init 
 ```
-# Criando node nas outras maquinas com o Token - EX:
+Criando node nas outras maquinas com o Token - EX:
 ```bash
 docker swarm join --token SWMTKN-sfdglk390kldpfgdf2s6qc3sq3q353uz27xbhçkkjdvlsfr95-5465dg456r523 192.168.0.5:2377
 ```
-# Criar serviço 
+Criar serviço 
 ```bash
 docker service create --name web-server --replicas 5 -dt -p 80:80 --mount type=volume,src=app,dst=/app/ webdevops/php-apache:alpine-php7
 ```
-# Verificando os serviços
+Verificando os serviços
 ```bash
 docker service ps web-server
 ```
@@ -152,7 +152,7 @@ Adicionando nas maquinas clientes
 ```bash
 mount -o v3 192.168.0.5:/var/lib/docker/volumes/app/_data /var/lib/docker/volumes/app/_data
 ```
-## PROXY COM NGINX
+## Proxy com NGINX
 Criar arquivo de configuração 
 ```bash
 nano /proxy/nginx.conf
