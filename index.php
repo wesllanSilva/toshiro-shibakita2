@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<title>Exemplo PHP</title>
+<title>Teste PHP</title>
 </head>
 <body>
 
@@ -12,11 +12,12 @@ header('Content-Type: text/html; charset=iso-8859-1');
 
 
 echo 'Versao Atual do PHP: ' . phpversion() . '<br>';
+echo 'Teste Docker local realizado por Wesllan' '<br>';
 
-$servername = "54.234.153.24";
+$servername = "192.168.1.104";
 $username = "root";
 $password = "Senha123";
-$database = "meubanco";
+$database = "testedb";
 
 // Criar conexão
 
