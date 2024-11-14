@@ -2,8 +2,8 @@ Docker: Utilização prática no cenário de Microsserviços
 Live com o Intrutor: Denilson Bonatti.
 
 # Sera usado o docker para implementar uma arquitetura de microserviços. 
-# Para a replica dos volumes foi usado um servidor NFS
-# Também utilizado um Proxy com Nginx e banco de dados Mysql
+## Para a replica dos volumes foi usado um servidor NFS
+## Também utilizado um Proxy com Nginx e banco de dados Mysql
 
 
 ## Instalação dos programas
@@ -41,7 +41,7 @@ CREATE TABLE dados (
 );
 ```
 
-
+Criando diretório para o volume
 
 <p>mkdir /var/lib/docker/volumes/app</p>
 <p>mkdir /var/lib/docker/volumes/app/_data</p>
@@ -125,35 +125,35 @@ docker service create --name web-server --replicas 5 -dt -p 80:80 --mount type=v
 docker service ps web-server
 ```
 ## Criando Servidor NFS 
-# instalar NFS no servidor 
+instalar NFS no servidor 
 ```bash
 apt-get install nfs-server
 ```
-# Instalar Agentes nas outras maquinas clientes
+Instalar Agentes nas outras maquinas clientes
 ```bash
 apt-get install nfs-common 
 ```
-# Editar arquivo de configuração do NFS (Como melhores praticas deve-se colocar apenas os IPs onde serão replicados... Neste exemplo o * representa todos)
+Editar arquivo de configuração do NFS (Como melhores praticas deve-se colocar apenas os IPs onde serão replicados... Neste exemplo o * representa todos)
 ```bash
 nano /etc/exports
 ```
 ```bash
 /var/lib/docker/volumes/app/_data *(rw,sync,subtree_check)
 ```
-# Após edição deve-se exportar 
+Após edição deve-se exportar 
 ```bash
 exportfs -ar 
 ```
-# Verificando o diretório compartilhado
+Verificando o diretório compartilhado
 ```bash
 showmount -e
 ```
-# Adicionando nas maquinas clientes
+Adicionando nas maquinas clientes
 ```bash
 mount -o v3 192.168.0.5:/var/lib/docker/volumes/app/_data /var/lib/docker/volumes/app/_data
 ```
 ## PROXY COM NGINX
-# Criar arquivo de configuração 
+Criar arquivo de configuração 
 ```bash
 nano /proxy/nginx.conf
 ```
@@ -189,18 +189,14 @@ nano /proxy/dockerfile
 FROM nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
-# Gerar a imagem 
+Gerar a imagem 
 ```bash
 docker build -t proxy-app .
 ```
-# Criar o container com a imagem recem criada
+Criar o container com a imagem recem criada
 ```bash
 docker container run --name my-proxy-app -dti -p 4500:4500 proxy-app
 ```
-
-
-
-
 
 
 
